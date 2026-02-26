@@ -17,6 +17,7 @@ import {
   Loader2,
   Armchair,
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -136,125 +137,132 @@ export default function SeatBookingApp() {
 
     if (!user) {
       return (
-        <div className="min-h-screen flex" style={{background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%)'}}>
+        <div className="min-h-screen flex bg-[#0F172A] selection:bg-blue-500/30">
           {/* Left Panel - Branding */}
-          <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 relative overflow-hidden">
-            {/* Animated background circles */}
+          <div className="hidden lg:flex lg:w-[55%] flex-col justify-between p-16 relative overflow-hidden border-r border-white/5">
+            {/* Animated background elements */}
             <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute -top-20 -left-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
-              <div className="absolute top-1/2 -right-20 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl animate-pulse" style={{animationDelay:'1s'}} />
-              <div className="absolute -bottom-20 left-1/3 w-72 h-72 bg-blue-400/15 rounded-full blur-3xl animate-pulse" style={{animationDelay:'2s'}} />
+              <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-blue-600/20 rounded-full blur-[120px] animate-pulse" />
+              <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-600/20 rounded-full blur-[120px] animate-pulse" style={{animationDelay:'2s'}} />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-20" style={{backgroundImage: 'radial-gradient(#3b82f6 1px, transparent 1px)', backgroundSize: '40px 40px'}} />
             </div>
-            {/* Grid pattern overlay */}
-            <div className="absolute inset-0" style={{backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0)', backgroundSize: '32px 32px'}} />
 
-            <div className="relative z-10">
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 bg-white/10 backdrop-blur rounded-xl border border-white/20">
-                  <MapIcon className="h-6 w-6 text-white" />
-                </div>
-                <span className="text-white font-bold text-xl tracking-tight">Wissen SeatMap</span>
+            <div className="relative z-10 flex items-center gap-4">
+              <div className="p-3 bg-blue-600 rounded-2xl shadow-xl shadow-blue-600/20 rotate-3">
+                <MapIcon className="h-7 w-7 text-white" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-white font-black text-2xl tracking-tighter uppercase italic">Wissen</span>
+                <span className="text-blue-400 text-[10px] font-bold tracking-[0.4em] uppercase -mt-1 ml-0.5">SeatMap 2.0</span>
               </div>
             </div>
 
-            <div className="relative z-10 space-y-8">
-              <div>
-                <h1 className="text-5xl font-extrabold text-white leading-tight">
-                  Smart Seat<br />
-                  <span className="text-blue-300">Booking</span><br />
-                  Made Simple
+            <div className="relative z-10 space-y-12 max-w-xl">
+              <div className="space-y-6">
+                <h1 className="text-7xl font-black text-white leading-[0.9] tracking-tighter italic uppercase">
+                  Hybrid<br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Workspace</span><br />
+                  <span className="text-3xl not-italic font-bold tracking-normal text-white/40 normal-case">Redefined for Teams</span>
                 </h1>
-                <p className="text-blue-200 mt-4 text-lg leading-relaxed">
-                  Reserve your workspace, manage your schedule, and collaborate with your team — all in one place.
+                <p className="text-slate-400 text-xl font-medium leading-relaxed max-w-md">
+                  Experience the future of office management. Intelligent seat allocation, real-time availability, and seamless team coordination.
                 </p>
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-6">
                 {[
-                  { icon: <Armchair className="h-5 w-5" />, label: '50 Seats', sub: 'Available' },
-                  { icon: <CheckCircle2 className="h-5 w-5" />, label: '2 Batches', sub: 'Managed' },
-                  { icon: <ShieldCheck className="h-5 w-5" />, label: '10 Squads', sub: 'Supported' },
+                  { icon: <Armchair className="h-6 w-6" />, label: '50 Seats', sub: 'Optimized' },
+                  { icon: <CheckCircle2 className="h-6 w-6" />, label: 'Dynamic', sub: 'Batches' },
+                  { icon: <ShieldCheck className="h-6 w-6" />, label: 'Enterprise', sub: 'Security' },
                 ].map((item, i) => (
-                  <div key={i} className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 text-center">
-                    <div className="flex justify-center text-blue-300 mb-2">{item.icon}</div>
-                    <div className="text-white font-bold text-sm">{item.label}</div>
-                    <div className="text-blue-300 text-xs">{item.sub}</div>
+                  <div key={i} className="group p-6 bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 rounded-[2rem] transition-all duration-500">
+                    <div className="text-blue-400 mb-4 group-hover:scale-110 transition-transform">{item.icon}</div>
+                    <div className="text-white font-black text-sm uppercase tracking-tight">{item.label}</div>
+                    <div className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-1">{item.sub}</div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="relative z-10 text-blue-300/60 text-sm">
-              © 2026 Wissen Technology · Seat Management System
+            <div className="relative z-10 flex items-center gap-6">
+              <div className="flex -space-x-3">
+                {[1,2,3,4].map(i => (
+                  <div key={i} className="h-10 w-10 rounded-full border-2 border-[#0F172A] bg-slate-800 flex items-center justify-center text-[10px] font-bold text-white">
+                    {String.fromCharCode(64 + i)}
+                  </div>
+                ))}
+              </div>
+              <p className="text-slate-500 text-sm font-medium">
+                Joined by <span className="text-white font-bold">200+</span> Wissen associates
+              </p>
             </div>
           </div>
 
           {/* Right Panel - Auth Form */}
-          <div className="w-full lg:w-1/2 flex items-center justify-center p-6 lg:p-12 bg-white">
-            <div className="w-full max-w-md">
-              {/* Mobile logo */}
-              <div className="flex lg:hidden items-center gap-2 mb-8 justify-center">
-                <div className="p-2 bg-blue-600 rounded-xl">
-                  <MapIcon className="h-5 w-5 text-white" />
+          <div className="w-full lg:w-[45%] flex items-center justify-center p-8 lg:p-20 bg-white rounded-l-[3rem] lg:-ml-12 relative z-20 shadow-2xl">
+            <div className="w-full max-w-md space-y-10">
+              {/* Mobile Branding */}
+              <div className="flex lg:hidden items-center gap-3 mb-12 justify-center">
+                <div className="p-2.5 bg-blue-600 rounded-xl">
+                  <MapIcon className="h-6 w-6 text-white" />
                 </div>
-                <span className="font-bold text-xl text-gray-900">Wissen SeatMap</span>
+                <span className="font-black text-2xl text-slate-900 tracking-tighter italic uppercase">Wissen</span>
               </div>
 
-              <div className="mb-8">
-                <h2 className="text-3xl font-extrabold text-gray-900">
-                  {isRegistering ? 'Create account' : 'Welcome back'}
+              <div className="space-y-3">
+                <h2 className="text-4xl font-black text-slate-900 tracking-tight italic uppercase">
+                  {isRegistering ? 'Start Booking' : 'Welcome Back'}
                 </h2>
-                <p className="text-gray-500 mt-2">
-                  {isRegistering ? 'Join your team on SeatMap' : 'Sign in to your workspace'}
+                <p className="text-slate-500 font-medium">
+                  {isRegistering ? 'Join your squad and secure your workspace.' : 'Sign in to access your dashboard.'}
                 </p>
               </div>
 
-              {/* Tab toggle */}
-              <div className="flex bg-gray-100 rounded-xl p-1 mb-8">
+              <div className="flex bg-slate-100 p-1.5 rounded-[1.25rem]">
                 <button
                   onClick={() => setIsRegistering(false)}
-                  className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all duration-200 ${!isRegistering ? 'bg-white shadow text-blue-600' : 'text-gray-500 hover:text-gray-700'}`}
+                  className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300 uppercase tracking-wider ${!isRegistering ? 'bg-white shadow-lg shadow-slate-200 text-blue-600' : 'text-slate-500 hover:text-slate-700'}`}
                 >
                   Sign In
                 </button>
                 <button
                   onClick={() => setIsRegistering(true)}
-                  className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all duration-200 ${isRegistering ? 'bg-white shadow text-blue-600' : 'text-gray-500 hover:text-gray-700'}`}
+                  className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300 uppercase tracking-wider ${isRegistering ? 'bg-white shadow-lg shadow-slate-200 text-blue-600' : 'text-slate-500 hover:text-slate-700'}`}
                 >
                   Register
                 </button>
               </div>
 
               {isRegistering ? (
-                <form onSubmit={handleRegister} className="space-y-5">
-                  <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-gray-700">Full Name</label>
+                <form onSubmit={handleRegister} className="space-y-6">
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 ml-1">Full Name</label>
                     <input
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="John Doe"
-                      className="w-full h-12 rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white outline-none transition-all"
+                      placeholder="e.g. Malavika Pillai"
+                      className="w-full h-14 rounded-2xl border-2 border-slate-100 bg-slate-50 px-5 text-sm font-bold text-slate-900 focus:border-blue-500 focus:bg-white outline-none transition-all placeholder:text-slate-300 placeholder:font-normal"
                       required
                     />
                   </div>
-                  <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-gray-700">Work Email</label>
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 ml-1">Work Email</label>
                     <input
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="john@wissen.com"
-                      className="w-full h-12 rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white outline-none transition-all"
+                      placeholder="name@wissen.com"
+                      className="w-full h-14 rounded-2xl border-2 border-slate-100 bg-slate-50 px-5 text-sm font-bold text-slate-900 focus:border-blue-500 focus:bg-white outline-none transition-all placeholder:text-slate-300 placeholder:font-normal"
                       required
                     />
                   </div>
-                  <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-gray-700">Squad & Batch</label>
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 ml-1">Squad & Batch</label>
                     <select
                       value={formData.squadId}
                       onChange={(e) => setFormData({ ...formData, squadId: e.target.value })}
-                      className="w-full h-12 rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white outline-none transition-all"
+                      className="w-full h-14 rounded-2xl border-2 border-slate-100 bg-slate-50 px-5 text-sm font-bold text-slate-900 focus:border-blue-500 focus:bg-white outline-none transition-all appearance-none"
                       required
                     >
                       <option value="">Select your squad</option>
@@ -268,33 +276,33 @@ export default function SeatBookingApp() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full h-12 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-bold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-200 mt-2"
+                    className="w-full h-14 bg-slate-900 hover:bg-blue-600 disabled:bg-slate-300 text-white font-black uppercase tracking-widest rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 shadow-2xl shadow-slate-200 group mt-4"
                   >
-                    {loading ? <Loader2 className="animate-spin h-5 w-5" /> : <>Create Account <ChevronRight className="h-4 w-4" /></>}
+                    {loading ? <Loader2 className="animate-spin h-5 w-5" /> : <>Create Account <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" /></>}
                   </button>
                 </form>
               ) : (
-                <form onSubmit={handleLogin} className="space-y-5">
-                  <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-gray-700">Email Address</label>
+                <form onSubmit={handleLogin} className="space-y-6">
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 ml-1">Email Address</label>
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="employee@wissen.com"
-                      className="w-full h-12 rounded-xl border border-gray-200 bg-gray-50 px-4 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white outline-none transition-all"
+                      className="w-full h-14 rounded-2xl border-2 border-slate-100 bg-slate-50 px-5 text-sm font-bold text-slate-900 focus:border-blue-500 focus:bg-white outline-none transition-all placeholder:text-slate-300 placeholder:font-normal"
                       required
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full h-12 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-bold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-200"
+                    className="w-full h-14 bg-slate-900 hover:bg-blue-600 disabled:bg-slate-300 text-white font-black uppercase tracking-widest rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 shadow-2xl shadow-slate-200 group"
                   >
-                    {loading ? <Loader2 className="animate-spin h-5 w-5" /> : <>Sign In <ChevronRight className="h-4 w-4" /></>}
+                    {loading ? <Loader2 className="animate-spin h-5 w-5" /> : <>Sign In <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" /></>}
                   </button>
-                  <p className="text-center text-sm text-gray-500 pt-2">
-                    Enter your registered work email to access the system.
+                  <p className="text-center text-xs text-slate-400 font-bold uppercase tracking-widest pt-4">
+                    Authorized Access Only
                   </p>
                 </form>
               )}
@@ -305,19 +313,22 @@ export default function SeatBookingApp() {
     }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row">
+    <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row selection:bg-blue-500/10">
       {/* Sidebar */}
-      <aside className="w-full md:w-64 bg-white border-r border-slate-200 flex flex-col">
-        <div className="p-6 border-b border-slate-200">
+      <aside className="w-full md:w-72 bg-white border-r border-slate-200 flex flex-col relative z-30">
+        <div className="p-8 border-b border-slate-100">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-600 rounded-lg">
-              <MapIcon className="h-5 w-5 text-white" />
+            <div className="p-2 bg-slate-900 rounded-xl shadow-lg shadow-slate-200 rotate-2">
+              <MapIcon className="h-6 w-6 text-white" />
             </div>
-            <span className="font-bold text-xl tracking-tight text-slate-900">SeatMap</span>
+            <div className="flex flex-col">
+              <span className="font-black text-xl tracking-tight text-slate-900 uppercase italic leading-none">Wissen</span>
+              <span className="text-[9px] font-bold text-blue-600 uppercase tracking-[0.3em] mt-0.5">SeatMap</span>
+            </div>
           </div>
         </div>
         
-        <nav className="flex-1 p-4 space-y-2">
+        <nav className="flex-1 p-6 space-y-3">
           <NavItem 
             icon={<LayoutDashboard className="h-5 w-5" />} 
             label="Dashboard" 
@@ -326,65 +337,70 @@ export default function SeatBookingApp() {
           />
           <NavItem 
             icon={<Calendar className="h-5 w-5" />} 
-            label="Booking" 
+            label="Book a Seat" 
             active={activeTab === 'booking'} 
             onClick={() => setActiveTab('booking')} 
           />
           <NavItem 
             icon={<CheckCircle2 className="h-5 w-5" />} 
-            label="Weekly View" 
+            label="Weekly Status" 
             active={activeTab === 'weekly'} 
             onClick={() => setActiveTab('weekly')} 
           />
-            <NavItem 
-              icon={<TrendingUp className="h-5 w-5" />} 
-              label="Analytics" 
-                active={activeTab === 'analytics'} 
-                onClick={() => setActiveTab('analytics')} 
-              />
-            </nav>
+          <NavItem 
+            icon={<TrendingUp className="h-5 w-5" />} 
+            label="Utilization" 
+            active={activeTab === 'analytics'} 
+            onClick={() => setActiveTab('analytics')} 
+          />
+        </nav>
 
-        <div className="p-4 border-t border-slate-200">
-          <div className="flex items-center gap-3 p-3 bg-slate-100 rounded-xl mb-4">
-            <div className="h-10 w-10 rounded-full bg-blue-200 flex items-center justify-center text-blue-700 font-bold">
-              {user.name[0]}
+        <div className="p-6 mt-auto">
+          <div className="p-5 bg-slate-900 rounded-[1.5rem] mb-4 shadow-xl shadow-slate-200 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-2 opacity-10 group-hover:scale-110 transition-transform">
+              <User className="h-12 w-12 text-white" />
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-slate-900 truncate">{user.name}</p>
-              <p className="text-xs text-slate-500 truncate">{user.squads.name}</p>
+            <div className="flex items-center gap-4 relative z-10">
+              <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-blue-500/20">
+                {user.name[0]}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-black text-white truncate uppercase italic">{user.name.split(' ')[0]}</p>
+                <p className="text-[10px] text-blue-300 font-bold uppercase tracking-widest truncate">{user.squads.name}</p>
+              </div>
             </div>
           </div>
           <Button 
             variant="ghost" 
-            className="w-full justify-start text-slate-600 hover:text-red-600 hover:bg-red-50"
+            className="w-full justify-start text-slate-500 hover:text-red-500 hover:bg-red-50 rounded-xl font-bold uppercase tracking-widest text-xs h-11 transition-all"
             onClick={handleLogout}
           >
-            <LogOut className="h-5 w-5 mr-3" />
+            <LogOut className="h-4 w-4 mr-3" />
             Logout
           </Button>
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-auto p-4 md:p-8">
-        <div className="max-w-6xl mx-auto space-y-8">
+      <main className="flex-1 overflow-auto bg-[#F8FAFC]">
+        <div className="max-w-6xl mx-auto p-6 md:p-12 space-y-12">
           {activeTab === 'dashboard' && <DashboardView user={user} onBook={() => setActiveTab('booking')} />}
           {activeTab === 'booking' && (
-            <div className="space-y-6">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                  <h2 className="text-3xl font-bold text-slate-900">Book a Seat</h2>
-                  <p className="text-slate-500">Select a date and choose your spot</p>
+            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="space-y-1">
+                  <h2 className="text-5xl font-black text-slate-900 tracking-tighter italic uppercase italic leading-none">Reserve</h2>
+                  <p className="text-slate-400 font-semibold tracking-wide uppercase text-xs">Choose your preferred workstation</p>
                 </div>
-                <div className="flex items-center gap-2 bg-white p-1 rounded-lg border border-slate-200 shadow-sm">
-                  <Button variant="ghost" size="icon" onClick={() => setSelectedDate(addDays(selectedDate, -1))}>
-                    <ChevronLeft className="h-4 w-4" />
+                <div className="flex items-center gap-3 bg-white p-2 rounded-2xl border-2 border-slate-100 shadow-sm">
+                  <Button variant="ghost" size="icon" className="rounded-xl hover:bg-slate-50" onClick={() => setSelectedDate(addDays(selectedDate, -1))}>
+                    <ChevronLeft className="h-5 w-5 text-slate-600" />
                   </Button>
-                  <div className="px-4 py-1 text-sm font-medium">
-                    {format(selectedDate, 'EEE, MMM d, yyyy')}
+                  <div className="px-6 py-2 text-sm font-black text-slate-900 uppercase tracking-widest border-x-2 border-slate-50 text-center min-w-[160px]">
+                    {format(selectedDate, 'EEEE, MMM dd')}
                   </div>
-                  <Button variant="ghost" size="icon" onClick={() => setSelectedDate(addDays(selectedDate, 1))}>
-                    <ChevronRight className="h-4 w-4" />
+                  <Button variant="ghost" size="icon" className="rounded-xl hover:bg-slate-50" onClick={() => setSelectedDate(addDays(selectedDate, 1))}>
+                    <ChevronRight className="h-5 w-5 text-slate-600" />
                   </Button>
                 </div>
               </div>
@@ -403,14 +419,16 @@ function NavItem({ icon, label, active, onClick }: any) {
   return (
     <button
       onClick={onClick}
-      className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+      className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300 group ${
         active 
-          ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' 
-          : 'text-slate-600 hover:bg-slate-100'
+          ? 'bg-slate-900 text-white shadow-2xl shadow-slate-200' 
+          : 'text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-lg hover:shadow-slate-100'
       }`}
     >
-      {icon}
-      <span className="font-medium">{label}</span>
+      <div className={`transition-transform duration-300 group-hover:scale-110 ${active ? 'text-blue-400' : 'text-slate-400 group-hover:text-blue-500'}`}>
+        {icon}
+      </div>
+      <span className={`font-bold uppercase tracking-[0.15em] text-[11px] ${active ? 'opacity-100' : 'opacity-70 group-hover:opacity-100'}`}>{label}</span>
     </button>
   );
 }
@@ -432,9 +450,6 @@ function DashboardView({ user, onBook }: any) {
         const statsData = await statsRes.json();
         const bookingsData = await bookingsRes.json();
         
-        if (statsData.error) console.error('Stats error:', statsData.error);
-        if (bookingsData.error) console.error('Bookings error:', bookingsData.error);
-  
         setStats(statsData.error ? null : statsData);
         setBookings(Array.isArray(bookingsData) ? bookingsData : []);
       } catch (err) {
@@ -476,144 +491,162 @@ function DashboardView({ user, onBook }: any) {
   const todayIsBatchDay = isBatchDay(new Date());
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
-      <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">
-            Hi, {user.name.split(' ')[0]} 👋
-          </h1>
-          <p className="text-lg text-slate-500 mt-2">
-            You are in <span className="font-semibold text-blue-600">{user.squads.name}</span> ({user.squads.batches.name})
+    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <header className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-slate-200 pb-12">
+        <div className="space-y-2">
+          <div className="flex items-center gap-3">
+            <span className="px-3 py-1 bg-blue-600 text-[10px] font-black text-white uppercase tracking-[0.3em] rounded-lg rotate-2">Active</span>
+            <h1 className="text-6xl font-black text-slate-900 tracking-tighter italic uppercase leading-none">
+              Hello, {user.name.split(' ')[0]}
+            </h1>
+          </div>
+          <p className="text-xl text-slate-400 font-medium">
+            Strategic seat management for <span className="text-slate-900 font-black italic uppercase tracking-tight">{user.squads.name}</span>
           </p>
         </div>
-        <div className="flex gap-3">
-          <Badge variant="outline" className={`py-1.5 px-4 text-sm rounded-full ${todayIsBatchDay ? 'bg-green-50 text-green-700 border-green-200' : 'bg-amber-50 text-amber-700 border-amber-200'}`}>
-            <Clock className="h-3.5 w-3.5 mr-2 inline" />
-            {todayIsBatchDay ? 'Today is your Batch Day' : 'Today is Floating Day'}
+        <div className="flex flex-wrap gap-4">
+          <Badge variant="outline" className={`py-3 px-6 text-[10px] font-black uppercase tracking-widest rounded-2xl border-2 ${todayIsBatchDay ? 'bg-emerald-50 text-emerald-600 border-emerald-100 shadow-lg shadow-emerald-100/50' : 'bg-amber-50 text-amber-600 border-amber-100 shadow-lg shadow-amber-100/50'}`}>
+            <Clock className="h-4 w-4 mr-3 inline opacity-70" />
+            {todayIsBatchDay ? 'Priority Access Enabled' : 'Buffer Mode Active'}
           </Badge>
-          <Badge variant="outline" className="py-1.5 px-4 text-sm rounded-full bg-blue-50 text-blue-700 border-blue-200">
-            <ShieldCheck className="h-3.5 w-3.5 mr-2 inline" />
-            {user.role}
+          <Badge variant="outline" className="py-3 px-6 text-[10px] font-black uppercase tracking-widest rounded-2xl bg-slate-900 text-white border-none shadow-xl shadow-slate-200">
+            <ShieldCheck className="h-4 w-4 mr-3 inline opacity-70" />
+            {user.role} Verified
           </Badge>
         </div>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="border-none shadow-sm hover:shadow-md transition-shadow">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-slate-500 uppercase tracking-wider">Office Utilization</CardTitle>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <Card className="border-none shadow-2xl shadow-slate-200/50 rounded-[2rem] overflow-hidden group">
+          <CardHeader className="p-8 pb-4">
+            <CardTitle className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Workspace Utilization</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">{loading ? '...' : Math.round(stats?.avgUtilization || 0)}%</div>
-            <p className="text-xs text-slate-400 mt-1">Average over last 30 days</p>
-            <div className="mt-4 h-2 w-full bg-slate-100 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-blue-600 rounded-full" 
-                style={{ width: `${stats?.avgUtilization || 0}%` }}
+          <CardContent className="p-8 pt-0">
+            <div className="text-5xl font-black text-slate-900 tracking-tighter italic uppercase">{loading ? '...' : Math.round(stats?.avgUtilization || 0)}%</div>
+            <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-2">Peak efficiency last 30d</p>
+            <div className="mt-8 h-3 w-full bg-slate-100 rounded-full overflow-hidden">
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={{ width: `${stats?.avgUtilization || 0}%` }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
+                className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full" 
               />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-none shadow-sm hover:shadow-md transition-shadow">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-slate-500 uppercase tracking-wider">Total Bookings</CardTitle>
+        <Card className="border-none shadow-2xl shadow-slate-200/50 rounded-[2rem] overflow-hidden">
+          <CardHeader className="p-8 pb-4">
+            <CardTitle className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Platform Engagement</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">{loading ? '...' : stats?.totalBookings || 0}</div>
-            <p className="text-xs text-slate-400 mt-1">Global bookings this month</p>
+          <CardContent className="p-8 pt-0">
+            <div className="text-5xl font-black text-slate-900 tracking-tighter italic uppercase">{loading ? '...' : stats?.totalBookings || 0}</div>
+            <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-2">Successful bookings this month</p>
+            <div className="mt-8 flex gap-2">
+              {[1,2,3,4,5,6].map(i => (
+                <div key={i} className="h-4 w-full bg-slate-50 rounded-lg animate-pulse" style={{animationDelay: `${i*0.2}s`}} />
+              ))}
+            </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-blue-600 text-white border-none shadow-xl shadow-blue-100 overflow-hidden relative group">
-          <div className="absolute top-0 right-0 -m-4 h-24 w-24 bg-blue-500 rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
-          <CardHeader className="pb-2 relative z-10">
-            <CardTitle className="text-sm font-medium text-blue-100 uppercase tracking-wider">Quick Action</CardTitle>
+        <Card className="bg-slate-900 text-white border-none shadow-2xl shadow-slate-900/20 rounded-[2.5rem] overflow-hidden relative group cursor-pointer" onClick={onBook}>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-700">
+            <Armchair className="h-32 w-32" />
+          </div>
+          <CardHeader className="p-8 pb-4 relative z-10">
+            <CardTitle className="text-[10px] font-black text-blue-400 uppercase tracking-[0.3em]">Priority Action</CardTitle>
           </CardHeader>
-          <CardContent className="relative z-10">
-            <div className="text-xl font-bold mb-4">Secure your spot</div>
+          <CardContent className="p-8 pt-0 relative z-10">
+            <div className="text-3xl font-black italic uppercase tracking-tighter leading-tight mb-8">Secure your<br />next spot</div>
             <Button 
-              className="w-full bg-white text-blue-600 hover:bg-blue-50 font-bold rounded-xl"
-              onClick={onBook}
+              className="w-full bg-white text-slate-900 hover:bg-blue-600 hover:text-white font-black uppercase tracking-widest text-[10px] rounded-2xl h-14 transition-all"
             >
-              Book Now
-              <ChevronRight className="h-4 w-4 ml-2" />
+              Check Availability
+              <ChevronRight className="h-4 w-4 ml-3 group-hover:translate-x-1 transition-transform" />
             </Button>
           </CardContent>
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <section className="space-y-4">
-          <h3 className="text-xl font-bold text-slate-900">Booking Rules</h3>
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
-            <div className="flex gap-4">
-              <div className="h-10 w-10 shrink-0 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-                <CheckCircle2 className="h-6 w-6" />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <section className="space-y-6">
+          <div className="flex items-center gap-4">
+            <div className="h-1 bg-slate-900 w-12" />
+            <h3 className="text-2xl font-black text-slate-900 italic uppercase tracking-tight">System Protocols</h3>
+          </div>
+          <div className="bg-white rounded-[2.5rem] border-2 border-slate-100 p-8 space-y-8 shadow-xl shadow-slate-200/20">
+            <div className="flex gap-6 items-start">
+              <div className="h-16 w-16 shrink-0 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-500 shadow-inner">
+                <CheckCircle2 className="h-8 w-8" />
               </div>
               <div>
-                <p className="font-semibold text-slate-900">Designated Seats</p>
-                <p className="text-sm text-slate-500">Available all day on your Batch Days ({user.squads.batches.working_days.map((d: number) => ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][d-1]).join(', ')}). No time buffer.</p>
+                <p className="text-lg font-black text-slate-900 uppercase italic tracking-tight">Designated Access</p>
+                <p className="text-slate-500 font-medium leading-relaxed mt-1">Full priority on your Batch Days ({user.squads.batches.working_days.map((d: number) => ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][d-1]).join(', ')}).</p>
               </div>
             </div>
-            <div className="flex gap-4">
-              <div className="h-10 w-10 shrink-0 rounded-full bg-amber-100 flex items-center justify-center text-amber-600">
-                <Clock className="h-6 w-6" />
+            <div className="flex gap-6 items-start">
+              <div className="h-16 w-16 shrink-0 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-500 shadow-inner">
+                <Clock className="h-8 w-8" />
               </div>
               <div>
-                <p className="font-semibold text-slate-900">Floating Seats</p>
-                <p className="text-sm text-slate-500">Available after 3 PM on the previous day for everyone. Buffer seats and unused designated seats (after 10 PM) fall here.</p>
+                <p className="text-lg font-black text-slate-900 uppercase italic tracking-tight">Floating Protocol</p>
+                <p className="text-slate-500 font-medium leading-relaxed mt-1">Available after 3 PM on previous day. Includes buffer zone and unassigned spots.</p>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="space-y-4">
-          <h3 className="text-xl font-bold text-slate-900">Your Upcoming Bookings</h3>
+        <section className="space-y-6">
+          <div className="flex items-center gap-4">
+            <div className="h-1 bg-slate-900 w-12" />
+            <h3 className="text-2xl font-black text-slate-900 italic uppercase tracking-tight">Upcoming Agenda</h3>
+          </div>
           {loading ? (
-            <div className="bg-white rounded-2xl border border-slate-200 p-12 flex items-center justify-center">
-              <Loader2 className="h-6 w-6 animate-spin text-blue-600" />
+            <div className="bg-white rounded-[2.5rem] border-2 border-slate-100 p-20 flex items-center justify-center shadow-xl shadow-slate-200/20">
+              <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
             </div>
           ) : bookings.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-4">
               {bookings.map((booking) => (
-                <div key={booking.id} className="bg-white rounded-2xl border border-slate-200 p-4 flex items-center justify-between group hover:border-blue-200 hover:shadow-sm transition-all">
-                  <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
-                      <Armchair className="h-6 w-6" />
+                <div key={booking.id} className="bg-white rounded-[2rem] border-2 border-slate-100 p-6 flex items-center justify-between group hover:border-blue-500 hover:shadow-2xl transition-all duration-500">
+                  <div className="flex items-center gap-6">
+                    <div className="h-16 w-16 rounded-2xl bg-slate-900 flex items-center justify-center text-white shadow-lg group-hover:rotate-3 transition-transform">
+                      <Armchair className="h-8 w-8" strokeWidth={2.5} />
                     </div>
                     <div>
-                      <p className="font-bold text-slate-900">Seat {booking.seats.seat_number}</p>
-                      <p className="text-sm text-slate-500">{format(new Date(booking.date), 'EEEE, MMMM d')}</p>
+                      <p className="text-xl font-black text-slate-900 uppercase italic tracking-tight leading-none mb-1">Station {booking.seats.seat_number}</p>
+                      <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">{format(new Date(booking.date), 'EEEE, MMM dd')}</p>
                     </div>
                   </div>
                   <Button 
                     variant="ghost" 
                     size="sm"
-                    className="text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="h-12 px-6 text-red-500 hover:text-white hover:bg-red-500 rounded-xl font-black uppercase tracking-widest text-[10px] opacity-0 group-hover:opacity-100 transition-all"
                     onClick={() => handleRelease(booking.id)}
                     disabled={releasing === booking.id}
                   >
-                    {releasing === booking.id ? 'Releasing...' : 'Release'}
+                    {releasing === booking.id ? 'Processing...' : 'Cancel'}
                   </Button>
                 </div>
               ))}
               <Button 
                 variant="ghost" 
-                className="w-full py-6 border-dashed border-2 rounded-2xl text-slate-500 hover:text-blue-600 hover:bg-blue-50 hover:border-blue-200"
+                className="w-full py-10 border-dashed border-2 border-slate-200 rounded-[2.5rem] text-slate-400 font-black uppercase tracking-[0.2em] text-[10px] hover:text-blue-600 hover:bg-blue-50 hover:border-blue-200 transition-all"
                 onClick={onBook}
               >
-                Book another spot
+                + Book Another Spot
               </Button>
             </div>
           ) : (
-            <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-50 text-slate-400 mb-4">
-                <Calendar className="h-6 w-6" />
+            <div className="bg-white rounded-[2.5rem] border-2 border-slate-100 p-16 text-center shadow-xl shadow-slate-200/20">
+              <div className="inline-flex h-20 w-20 items-center justify-center rounded-3xl bg-slate-50 text-slate-300 mb-6 shadow-inner">
+                <Calendar className="h-10 w-10" />
               </div>
-              <p className="text-slate-500 mb-4">You have no upcoming bookings.</p>
-              <Button variant="outline" className="rounded-xl border-dashed border-2 px-8" onClick={onBook}>
-                Check availability
+              <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-8">No Upcoming Missions Found</p>
+              <Button className="bg-slate-900 text-white font-black uppercase tracking-widest text-[10px] px-10 h-14 rounded-2xl shadow-xl shadow-slate-200" onClick={onBook}>
+                Initiate Booking
               </Button>
             </div>
           )}

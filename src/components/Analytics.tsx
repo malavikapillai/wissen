@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { Loader2, TrendingUp, Users, Armchair, PieChart as PieChartIcon } from 'lucide-react';
 import { 
   BarChart, 
@@ -65,35 +67,43 @@ export default function Analytics() {
     .slice(0, 10);
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <div>
-        <h2 className="text-3xl font-bold text-slate-900 tracking-tight">Office Insights</h2>
-        <p className="text-slate-500">Deep dive into office utilization and squad behavior</p>
+    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700 pb-20">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-slate-200 pb-12">
+        <div className="space-y-2">
+          <div className="flex items-center gap-4">
+            <div className="h-1 bg-slate-900 w-12" />
+            <h2 className="text-5xl font-black text-slate-900 tracking-tighter italic uppercase leading-none">Office Insights</h2>
+          </div>
+          <p className="text-xl text-slate-400 font-medium italic">Data-driven analysis of workspace dynamics and squad behavior</p>
+        </div>
+        <div className="flex items-center gap-4">
+          <Badge className="bg-blue-600 text-white px-6 py-2 rounded-full uppercase tracking-widest text-[10px] font-black shadow-xl shadow-blue-200">Live Telemetry</Badge>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <Card className="border-none shadow-sm overflow-hidden">
-          <CardHeader>
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-100 rounded-lg text-blue-600">
-                <Users className="h-5 w-5" />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <Card className="border-none shadow-2xl shadow-slate-200/50 rounded-[3rem] overflow-hidden group hover:scale-[1.01] transition-transform duration-500">
+          <CardHeader className="p-10 pb-4">
+            <div className="flex items-center gap-4">
+              <div className="p-4 bg-slate-900 rounded-[1.25rem] text-blue-400 shadow-lg rotate-2 group-hover:rotate-0 transition-transform">
+                <Users className="h-6 w-6" strokeWidth={2.5} />
               </div>
               <div>
-                <CardTitle>Squad Presence</CardTitle>
-                <CardDescription>Distribution of bookings by squad</CardDescription>
+                <CardTitle className="text-2xl font-black text-slate-900 uppercase italic tracking-tight">Squad Dynamics</CardTitle>
+                <CardDescription className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Booking weight distribution</CardDescription>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="h-80">
+          <CardContent className="p-10 pt-0 h-96">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={squadData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={60}
-                  outerRadius={100}
-                  paddingAngle={5}
+                  innerRadius={80}
+                  outerRadius={120}
+                  paddingAngle={8}
                   dataKey="value"
                   label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                 >
@@ -102,91 +112,99 @@ export default function Analytics() {
                   ))}
                 </Pie>
                 <Tooltip 
-                  contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                  contentStyle={{ borderRadius: '24px', border: 'none', boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.15)', padding: '16px', fontWeight: 'bold' }}
                 />
               </PieChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
-        <Card className="border-none shadow-sm overflow-hidden">
-          <CardHeader>
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-amber-100 rounded-lg text-amber-600">
-                <TrendingUp className="h-5 w-5" />
+        <Card className="border-none shadow-2xl shadow-slate-200/50 rounded-[3rem] overflow-hidden group hover:scale-[1.01] transition-transform duration-500">
+          <CardHeader className="p-10 pb-4">
+            <div className="flex items-center gap-4">
+              <div className="p-4 bg-slate-900 rounded-[1.25rem] text-amber-400 shadow-lg -rotate-2 group-hover:rotate-0 transition-transform">
+                <TrendingUp className="h-6 w-6" strokeWidth={2.5} />
               </div>
               <div>
-                <CardTitle>Top Occupied Seats</CardTitle>
-                <CardDescription>Most frequently booked spots</CardDescription>
+                <CardTitle className="text-2xl font-black text-slate-900 uppercase italic tracking-tight">Hot Zones</CardTitle>
+                <CardDescription className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">High-frequency workstation IDs</CardDescription>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="h-80">
+          <CardContent className="p-10 pt-0 h-96">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={seatUsageData}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                 <XAxis 
                   dataKey="id" 
-                  tick={{ fontSize: 10, fill: '#94a3b8' }} 
+                  tick={{ fontSize: 10, fill: '#94a3b8', fontWeight: 800 }} 
                   axisLine={false}
                   tickLine={false}
-                  label={{ value: 'Seat ID', position: 'insideBottom', offset: -5, fontSize: 10 }}
                 />
                 <YAxis 
-                  tick={{ fontSize: 10, fill: '#94a3b8' }} 
+                  tick={{ fontSize: 10, fill: '#94a3b8', fontWeight: 800 }} 
                   axisLine={false}
                   tickLine={false}
                 />
                 <Tooltip 
                   cursor={{ fill: '#f8fafc' }}
-                  contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                  contentStyle={{ borderRadius: '24px', border: 'none', boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.15)', padding: '16px', fontWeight: 'bold' }}
                 />
-                <Bar dataKey="value" fill="#3b82f6" radius={[4, 4, 0, 0]} barSize={30} />
+                <Bar dataKey="value" fill="#3b82f6" radius={[12, 12, 0, 0]} barSize={40} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
       </div>
 
-      <Card className="border-none shadow-sm bg-slate-900 text-white overflow-hidden">
-        <CardContent className="p-10 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold">Office Efficiency Score</h3>
-            <p className="text-slate-400 max-w-md">
-              Based on the last 30 days of booking patterns, your office is currently operating at an average of <span className="text-white font-bold">{Math.round(data.avgUtilization)}%</span> capacity.
+      <Card className="border-none shadow-2xl shadow-slate-900/20 bg-slate-900 text-white rounded-[4rem] overflow-hidden relative group">
+        <div className="absolute top-0 right-0 p-20 opacity-[0.03] group-hover:rotate-12 transition-transform duration-1000">
+          <PieChartIcon className="h-64 w-64" />
+        </div>
+        <CardContent className="p-16 flex flex-col lg:flex-row items-center justify-between gap-16 relative z-10">
+          <div className="space-y-8">
+            <div className="space-y-2">
+              <span className="text-blue-400 text-[10px] font-black uppercase tracking-[0.4em]">Strategic Assessment</span>
+              <h3 className="text-5xl font-black italic uppercase tracking-tighter">Office Efficiency Score</h3>
+            </div>
+            <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-xl italic">
+              Empirical analysis of the last 30 operational cycles indicates that the workspace is currently optimized at <span className="text-white font-black">{Math.round(data.avgUtilization)}%</span> of theoretical peak capacity.
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-12">
               <div className="flex flex-col">
-                <span className="text-3xl font-black">{data.totalBookings}</span>
-                <span className="text-xs uppercase tracking-widest text-slate-500 font-bold">Total Sessions</span>
+                <span className="text-5xl font-black tracking-tighter italic">{data.totalBookings}</span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-blue-400 font-black mt-1">Active Sessions</span>
               </div>
-              <div className="w-px h-10 bg-slate-800"></div>
+              <div className="w-px h-16 bg-white/10" />
               <div className="flex flex-col">
-                <span className="text-3xl font-black">50</span>
-                <span className="text-xs uppercase tracking-widest text-slate-500 font-bold">Max Capacity</span>
+                <span className="text-5xl font-black tracking-tighter italic">50</span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-blue-400 font-black mt-1">Designated Nodes</span>
               </div>
             </div>
           </div>
-          <div className="relative h-32 w-32 flex items-center justify-center">
-            <svg className="h-full w-full" viewBox="0 0 36 36">
+          <div className="relative h-64 w-64 flex items-center justify-center group/gauge">
+            <svg className="h-full w-full rotate-[-90deg]" viewBox="0 0 36 36">
               <path
-                className="stroke-slate-800"
+                className="stroke-white/5"
                 strokeDasharray="100, 100"
                 d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                 fill="none"
-                strokeWidth="3"
+                strokeWidth="2.5"
               />
-              <path
+              <motion.path
+                initial={{ strokeDasharray: "0, 100" }}
+                animate={{ strokeDasharray: `${data.avgUtilization}, 100` }}
+                transition={{ duration: 2, ease: "easeOut" }}
                 className="stroke-blue-500"
-                strokeDasharray={`${data.avgUtilization}, 100`}
                 d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                 fill="none"
-                strokeWidth="3"
+                strokeWidth="2.5"
                 strokeLinecap="round"
               />
             </svg>
-            <div className="absolute inset-0 flex items-center justify-center font-black text-xl">
-              {Math.round(data.avgUtilization)}%
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-5xl font-black italic tracking-tighter group-hover/gauge:scale-110 transition-transform">{Math.round(data.avgUtilization)}%</span>
+              <span className="text-[8px] font-black uppercase tracking-widest text-slate-500 mt-1">Efficiency</span>
             </div>
           </div>
         </CardContent>

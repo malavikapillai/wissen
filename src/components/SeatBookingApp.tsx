@@ -34,6 +34,8 @@ export default function SeatBookingApp() {
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [adminSelectedEmployee, setAdminSelectedEmployee] = useState<any>(null);
+  const [employees, setEmployees] = useState<any[]>([]);
   
   // Registration state
   const [isRegistering, setIsRegistering] = useState(false);
@@ -57,6 +59,17 @@ export default function SeatBookingApp() {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (user?.role === 'ADMIN' && employees.length === 0) {
+      fetch('/api/employees')
+        .then(res => res.json())
+        .then(data => {
+          if (Array.isArray(data)) setEmployees(data);
+        })
+        .catch(err => console.error('Error fetching employees:', err));
+    }
+  }, [user]);
 
   useEffect(() => {
     if (isRegistering && squads.length === 0) {
@@ -404,28 +417,49 @@ export default function SeatBookingApp() {
       <main className="flex-1 overflow-auto bg-[#F8FAFC] dark:bg-slate-950">
         <div className="max-w-6xl mx-auto p-6 md:p-12 space-y-12">
           {activeTab === 'dashboard' && <DashboardView user={user} onBook={() => setActiveTab('booking')} />}
-            {activeTab === 'booking' && (
-              <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                  <div className="space-y-1">
-                    <h2 className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter italic uppercase italic leading-none">Reserve</h2>
-                    <p className="text-slate-400 dark:text-slate-500 font-semibold tracking-wide uppercase text-xs">Choose your preferred workstation</p>
-                  </div>
-                  <div className="flex items-center gap-3 bg-white dark:bg-slate-900 p-2 rounded-2xl border-2 border-slate-100 dark:border-slate-800 shadow-sm">
-                    <Button variant="ghost" size="icon" className="rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800" onClick={() => setSelectedDate(addDays(selectedDate, -1))}>
-                      <ChevronLeft className="h-5 w-5 text-slate-600 dark:text-slate-400" />
-                    </Button>
-                    <div className="px-6 py-2 text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest border-x-2 border-slate-50 dark:border-slate-800 text-center min-w-[160px]">
-                      {format(selectedDate, 'EEEE, MMM dd')}
-                    </div>
-                    <Button variant="ghost" size="icon" className="rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800" onClick={() => setSelectedDate(addDays(selectedDate, 1))}>
-                      <ChevronRight className="h-5 w-5 text-slate-600 dark:text-slate-400" />
-                    </Button>
-                  </div>
+          {activeTab === 'booking' && (
+            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="space-y-1">
+                  <h2 className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter italic uppercase italic leading-none">Reserve</h2>
+                  <p className="text-slate-400 dark:text-slate-500 font-semibold tracking-wide uppercase text-xs">Choose your preferred workstation</p>
                 </div>
-                  <SeatMap user={user} date={format(selectedDate, 'yyyy-MM-dd')} currentUser={user} />
+                
+                {user.role === 'ADMIN' && (
+                  <div className="flex items-center gap-4 bg-white dark:bg-slate-900 p-3 rounded-2xl border-2 border-slate-100 dark:border-slate-800 shadow-sm min-w-[300px]">
+                    <User className="h-5 w-5 text-blue-600" />
+                    <select
+                      className="bg-transparent border-none text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-white focus:ring-0 w-full"
+                      value={adminSelectedEmployee?.id || ''}
+                      onChange={(e) => {
+                        const emp = employees.find(emp => emp.id === e.target.value);
+                        setAdminSelectedEmployee(emp || null);
+                      }}
+                    >
+                      <option value="">Booking for: Myself</option>
+                      {employees.map((emp) => (
+                        <option key={emp.id} value={emp.id}>{emp.name} ({emp.squads?.name})</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+
+                <div className="flex items-center gap-3 bg-white dark:bg-slate-900 p-2 rounded-2xl border-2 border-slate-100 dark:border-slate-800 shadow-sm">
+                  <Button variant="ghost" size="icon" className="rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800" onClick={() => setSelectedDate(addDays(selectedDate, -1))}>
+                    <ChevronLeft className="h-5 w-5 text-slate-600 dark:text-slate-400" />
+                  </Button>
+                  <div className="px-6 py-2 text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest border-x-2 border-slate-50 dark:border-slate-800 text-center min-w-[160px]">
+                    {format(selectedDate, 'EEEE, MMM dd')}
+                  </div>
+                  <Button variant="ghost" size="icon" className="rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800" onClick={() => setSelectedDate(addDays(selectedDate, 1))}>
+                    <ChevronRight className="h-5 w-5 text-slate-600 dark:text-slate-400" />
+                  </Button>
+                </div>
               </div>
-            )}
+              <SeatMap user={adminSelectedEmployee || user} date={format(selectedDate, 'yyyy-MM-dd')} currentUser={user} />
+            </div>
+          )}
+
 
             {activeTab === 'weekly' && <WeeklyView />}
             {activeTab === 'analytics' && <Analytics />}

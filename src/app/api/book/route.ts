@@ -10,11 +10,30 @@ export async function POST(request: Request) {
   }
 
   // 1. Get Employee, Seat info
-  const { data: employee, error: employeeError } = await supabaseAdmin
-    .from('employees')
-    .select('*, squads(*)')
-    .eq('id', employeeId)
-    .single();
+  let employee;
+  if (employeeId === 'admin-001') {
+    employee = {
+      id: 'admin-001',
+      name: 'System Administrator',
+      email: 'admin@wissen.com',
+      role: 'ADMIN',
+      squad_id: null,
+      squads: {
+        batch_id: 'batch-admin'
+      }
+    };
+  } else {
+    const { data, error: employeeError } = await supabaseAdmin
+      .from('employees')
+      .select('*, squads(*)')
+      .eq('id', employeeId)
+      .single();
+    
+    if (employeeError || !data) {
+      return NextResponse.json({ error: 'Employee not found' }, { status: 404 });
+    }
+    employee = data;
+  }
 
   const { data: seat, error: seatError } = await supabaseAdmin
     .from('seats')
@@ -22,8 +41,8 @@ export async function POST(request: Request) {
     .eq('id', seatId)
     .single();
 
-  if (employeeError || seatError) {
-    return NextResponse.json({ error: 'System error fetching dependencies' }, { status: 500 });
+  if (seatError) {
+    return NextResponse.json({ error: 'Seat not found' }, { status: 404 });
   }
 
   // 2. Booking Rules Enforcement (Bypassed if Admin)

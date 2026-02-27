@@ -68,29 +68,29 @@ export default function Analytics() {
 
   return (
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700 pb-20">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-slate-200 pb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-slate-200 dark:border-slate-800 pb-12">
         <div className="space-y-2">
           <div className="flex items-center gap-4">
-            <div className="h-1 bg-slate-900 w-12" />
-            <h2 className="text-5xl font-black text-slate-900 tracking-tighter italic uppercase leading-none">Office Insights</h2>
+            <div className="h-1 bg-slate-900 dark:bg-white w-12" />
+            <h2 className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter italic uppercase leading-none">Office Insights</h2>
           </div>
-          <p className="text-xl text-slate-400 font-medium italic">Data-driven analysis of workspace dynamics and squad behavior</p>
+          <p className="text-xl text-slate-400 dark:text-slate-500 font-medium italic">Data-driven analysis of workspace dynamics and squad behavior</p>
         </div>
         <div className="flex items-center gap-4">
-          <Badge className="bg-blue-600 text-white px-6 py-2 rounded-full uppercase tracking-widest text-[10px] font-black shadow-xl shadow-blue-200">Live Telemetry</Badge>
+          <Badge className="bg-blue-600 dark:bg-blue-500 text-white px-6 py-2 rounded-full uppercase tracking-widest text-[10px] font-black shadow-xl shadow-blue-200 dark:shadow-none">Live Telemetry</Badge>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <Card className="border-none shadow-2xl shadow-slate-200/50 rounded-[3rem] overflow-hidden group hover:scale-[1.01] transition-transform duration-500">
+        <Card className="border-none shadow-2xl shadow-slate-200/50 dark:shadow-none bg-white dark:bg-slate-900 rounded-[3rem] overflow-hidden group hover:scale-[1.01] transition-transform duration-500">
           <CardHeader className="p-10 pb-4">
             <div className="flex items-center gap-4">
-              <div className="p-4 bg-slate-900 rounded-[1.25rem] text-blue-400 shadow-lg rotate-2 group-hover:rotate-0 transition-transform">
+              <div className="p-4 bg-slate-900 dark:bg-slate-800 rounded-[1.25rem] text-blue-400 shadow-lg rotate-2 group-hover:rotate-0 transition-transform">
                 <Users className="h-6 w-6" strokeWidth={2.5} />
               </div>
               <div>
-                <CardTitle className="text-2xl font-black text-slate-900 uppercase italic tracking-tight">Squad Dynamics</CardTitle>
-                <CardDescription className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Booking weight distribution</CardDescription>
+                <CardTitle className="text-2xl font-black text-slate-900 dark:text-white uppercase italic tracking-tight">Squad Dynamics</CardTitle>
+                <CardDescription className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-1">Booking weight distribution</CardDescription>
               </div>
             </div>
           </CardHeader>
@@ -112,43 +112,44 @@ export default function Analytics() {
                   ))}
                 </Pie>
                 <Tooltip 
-                  contentStyle={{ borderRadius: '24px', border: 'none', boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.15)', padding: '16px', fontWeight: 'bold' }}
+                  contentStyle={{ borderRadius: '24px', border: 'none', backgroundColor: '#0f172a', color: '#f8fafc', boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.15)', padding: '16px', fontWeight: 'bold' }}
+                  itemStyle={{ color: '#f8fafc' }}
                 />
               </PieChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
-        <Card className="border-none shadow-2xl shadow-slate-200/50 rounded-[3rem] overflow-hidden group hover:scale-[1.01] transition-transform duration-500">
+        <Card className="border-none shadow-2xl shadow-slate-200/50 dark:shadow-none bg-white dark:bg-slate-900 rounded-[3rem] overflow-hidden group hover:scale-[1.01] transition-transform duration-500">
           <CardHeader className="p-10 pb-4">
             <div className="flex items-center gap-4">
-              <div className="p-4 bg-slate-900 rounded-[1.25rem] text-amber-400 shadow-lg -rotate-2 group-hover:rotate-0 transition-transform">
+              <div className="p-4 bg-slate-900 dark:bg-slate-800 rounded-[1.25rem] text-amber-400 shadow-lg -rotate-2 group-hover:rotate-0 transition-transform">
                 <TrendingUp className="h-6 w-6" strokeWidth={2.5} />
               </div>
               <div>
-                <CardTitle className="text-2xl font-black text-slate-900 uppercase italic tracking-tight">Hot Zones</CardTitle>
-                <CardDescription className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">High-frequency workstation IDs</CardDescription>
+                <CardTitle className="text-2xl font-black text-slate-900 dark:text-white uppercase italic tracking-tight">Hot Zones</CardTitle>
+                <CardDescription className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-1">High-frequency workstation IDs</CardDescription>
               </div>
             </div>
           </CardHeader>
           <CardContent className="p-10 pt-0 h-96">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={seatUsageData}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e293b" />
                 <XAxis 
                   dataKey="id" 
-                  tick={{ fontSize: 10, fill: '#94a3b8', fontWeight: 800 }} 
+                  tick={{ fontSize: 10, fill: '#64748b', fontWeight: 800 }} 
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis 
-                  tick={{ fontSize: 10, fill: '#94a3b8', fontWeight: 800 }} 
+                  tick={{ fontSize: 10, fill: '#64748b', fontWeight: 800 }} 
                   axisLine={false}
                   tickLine={false}
                 />
                 <Tooltip 
-                  cursor={{ fill: '#f8fafc' }}
-                  contentStyle={{ borderRadius: '24px', border: 'none', boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.15)', padding: '16px', fontWeight: 'bold' }}
+                  cursor={{ fill: 'rgba(59, 130, 246, 0.1)' }}
+                  contentStyle={{ borderRadius: '24px', border: 'none', backgroundColor: '#0f172a', color: '#f8fafc', boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.15)', padding: '16px', fontWeight: 'bold' }}
                 />
                 <Bar dataKey="value" fill="#3b82f6" radius={[12, 12, 0, 0]} barSize={40} />
               </BarChart>
